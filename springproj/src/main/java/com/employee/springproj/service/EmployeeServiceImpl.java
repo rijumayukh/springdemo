@@ -1,18 +1,37 @@
 package com.employee.springproj.service;
 
-import org.springframework.beans.factory.annotation.Qualifier;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
+import com.employee.springproj.dao.IEmployeeDAO;
+import com.employee.springproj.model.EmployeeModel;
 
 @Primary
 //@Qualifier("iEmploeeService")
-@Component
+@Service
 public class EmployeeServiceImpl implements IEmploeeService {
 
-	/* (non-Javadoc)
-	 * @see com.employee.springproj.service.IEmploeeService#getEmployee(java.lang.Long)
-	 */
-	public void getEmployee(Long empId){
-		System.out.println("get employee called");
+	@Autowired
+	IEmployeeDAO iEmployeeDAO;
+	
+	
+	public EmployeeModel getEmployeeById(Long empId){
+		return iEmployeeDAO.getEmployeeById(empId);
 	}
+
+	public List<EmployeeModel> getAllEmployees() {
+		return iEmployeeDAO.getAllEmployees();
+	}
+	
+	public void insertEmplyee(EmployeeModel employeeModel) {
+		iEmployeeDAO.insertEmplyee(employeeModel);
+	}
+
+	public void updateEmplyeeFirstName(EmployeeModel employeeModel) {
+		iEmployeeDAO.updateEmplyeeFirstName(employeeModel);
+	}
+
 }
